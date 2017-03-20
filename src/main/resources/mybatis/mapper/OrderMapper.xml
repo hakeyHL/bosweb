@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bos.mapper.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.bos.model.Order">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="sender" property="sender" jdbcType="VARCHAR"/>
+        <result column="receiver" property="receiver" jdbcType="VARCHAR"/>
+        <result column="senderPhone" property="senderphone" jdbcType="VARCHAR"/>
+        <result column="receiverPhone" property="receiverphone" jdbcType="VARCHAR"/>
+        <result column="senderAddress" property="senderaddress" jdbcType="VARCHAR"/>
+        <result column="receiverAddress" property="receiveraddress" jdbcType="VARCHAR"/>
+        <result column="postCode" property="postcode" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP"/>
+        <result column="courierId" property="courierid" jdbcType="INTEGER"/>
+        <result column="carNumber" property="carnumber" jdbcType="INTEGER"/>
+        <result column="show" property="show" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    `id`, `sender`, `receiver`, `senderPhone`, `receiverPhone`, `senderAddress`, `receiverAddress`, 
+    `postCode`, `createTime`, `updateTime`, `courierId`, `carNumber`, `show`
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bos.model.OrderExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from `order`
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from `order`
+        where `id` = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from `order`
+    where `id` = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.bos.model.OrderExample">
+        delete from `order`
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.bos.model.Order">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into `order` (`sender`, `receiver`, `senderPhone`,
+        `receiverPhone`, `senderAddress`, `receiverAddress`,
+        `postCode`, `createTime`, `updateTime`,
+        `courierId`, `carNumber`, `show`
+        )
+        values (#{sender,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, #{senderphone,jdbcType=VARCHAR},
+        #{receiverphone,jdbcType=VARCHAR}, #{senderaddress,jdbcType=VARCHAR}, #{receiveraddress,jdbcType=VARCHAR},
+        #{postcode,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP},
+        #{courierid,jdbcType=INTEGER}, #{carnumber,jdbcType=INTEGER}, #{show,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.bos.model.Order">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into `order`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sender != null">
+                `sender`,
+            </if>
+            <if test="receiver != null">
+                `receiver`,
+            </if>
+            <if test="senderphone != null">
+                `senderPhone`,
+            </if>
+            <if test="receiverphone != null">
+                `receiverPhone`,
+            </if>
+            <if test="senderaddress != null">
+                `senderAddress`,
+            </if>
+            <if test="receiveraddress != null">
+                `receiverAddress`,
+            </if>
+            <if test="postcode != null">
+                `postCode`,
+            </if>
+            <if test="createtime != null">
+                `createTime`,
+            </if>
+            <if test="updatetime != null">
+                `updateTime`,
+            </if>
+            <if test="courierid != null">
+                `courierId`,
+            </if>
+            <if test="carnumber != null">
+                `carNumber`,
+            </if>
+            <if test="show != null">
+                `show`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sender != null">
+                #{sender,jdbcType=VARCHAR},
+            </if>
+            <if test="receiver != null">
+                #{receiver,jdbcType=VARCHAR},
+            </if>
+            <if test="senderphone != null">
+                #{senderphone,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverphone != null">
+                #{receiverphone,jdbcType=VARCHAR},
+            </if>
+            <if test="senderaddress != null">
+                #{senderaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="receiveraddress != null">
+                #{receiveraddress,jdbcType=VARCHAR},
+            </if>
+            <if test="postcode != null">
+                #{postcode,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="courierid != null">
+                #{courierid,jdbcType=INTEGER},
+            </if>
+            <if test="carnumber != null">
+                #{carnumber,jdbcType=INTEGER},
+            </if>
+            <if test="show != null">
+                #{show,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.bos.model.OrderExample" resultType="java.lang.Integer">
+        select count(*) from `order`
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update `order`
+        <set>
+            <if test="record.id != null">
+                `id` = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.sender != null">
+                `sender` = #{record.sender,jdbcType=VARCHAR},
+            </if>
+            <if test="record.receiver != null">
+                `receiver` = #{record.receiver,jdbcType=VARCHAR},
+            </if>
+            <if test="record.senderphone != null">
+                `senderPhone` = #{record.senderphone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.receiverphone != null">
+                `receiverPhone` = #{record.receiverphone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.senderaddress != null">
+                `senderAddress` = #{record.senderaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="record.receiveraddress != null">
+                `receiverAddress` = #{record.receiveraddress,jdbcType=VARCHAR},
+            </if>
+            <if test="record.postcode != null">
+                `postCode` = #{record.postcode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createtime != null">
+                `createTime` = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updatetime != null">
+                `updateTime` = #{record.updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.courierid != null">
+                `courierId` = #{record.courierid,jdbcType=INTEGER},
+            </if>
+            <if test="record.carnumber != null">
+                `carNumber` = #{record.carnumber,jdbcType=INTEGER},
+            </if>
+            <if test="record.show != null">
+                `show` = #{record.show,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update `order`
+        set `id` = #{record.id,jdbcType=INTEGER},
+        `sender` = #{record.sender,jdbcType=VARCHAR},
+        `receiver` = #{record.receiver,jdbcType=VARCHAR},
+        `senderPhone` = #{record.senderphone,jdbcType=VARCHAR},
+        `receiverPhone` = #{record.receiverphone,jdbcType=VARCHAR},
+        `senderAddress` = #{record.senderaddress,jdbcType=VARCHAR},
+        `receiverAddress` = #{record.receiveraddress,jdbcType=VARCHAR},
+        `postCode` = #{record.postcode,jdbcType=VARCHAR},
+        `createTime` = #{record.createtime,jdbcType=TIMESTAMP},
+        `updateTime` = #{record.updatetime,jdbcType=TIMESTAMP},
+        `courierId` = #{record.courierid,jdbcType=INTEGER},
+        `carNumber` = #{record.carnumber,jdbcType=INTEGER},
+        `show` = #{record.show,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bos.model.Order">
+        update `order`
+        <set>
+            <if test="sender != null">
+                `sender` = #{sender,jdbcType=VARCHAR},
+            </if>
+            <if test="receiver != null">
+                `receiver` = #{receiver,jdbcType=VARCHAR},
+            </if>
+            <if test="senderphone != null">
+                `senderPhone` = #{senderphone,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverphone != null">
+                `receiverPhone` = #{receiverphone,jdbcType=VARCHAR},
+            </if>
+            <if test="senderaddress != null">
+                `senderAddress` = #{senderaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="receiveraddress != null">
+                `receiverAddress` = #{receiveraddress,jdbcType=VARCHAR},
+            </if>
+            <if test="postcode != null">
+                `postCode` = #{postcode,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                `createTime` = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                `updateTime` = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="courierid != null">
+                `courierId` = #{courierid,jdbcType=INTEGER},
+            </if>
+            <if test="carnumber != null">
+                `carNumber` = #{carnumber,jdbcType=INTEGER},
+            </if>
+            <if test="show != null">
+                `show` = #{show,jdbcType=INTEGER},
+            </if>
+        </set>
+        where `id` = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bos.model.Order">
+    update `order`
+    set `sender` = #{sender,jdbcType=VARCHAR},
+      `receiver` = #{receiver,jdbcType=VARCHAR},
+      `senderPhone` = #{senderphone,jdbcType=VARCHAR},
+      `receiverPhone` = #{receiverphone,jdbcType=VARCHAR},
+      `senderAddress` = #{senderaddress,jdbcType=VARCHAR},
+      `receiverAddress` = #{receiveraddress,jdbcType=VARCHAR},
+      `postCode` = #{postcode,jdbcType=VARCHAR},
+      `createTime` = #{createtime,jdbcType=TIMESTAMP},
+      `updateTime` = #{updatetime,jdbcType=TIMESTAMP},
+      `courierId` = #{courierid,jdbcType=INTEGER},
+      `carNumber` = #{carnumber,jdbcType=INTEGER},
+      `show` = #{show,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=INTEGER}
+  </update>
+    <select resultMap="BaseResultMap" parameterType="com.bos.model.OrderExample" id="selectByExampleWithRowbounds">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from `order`
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+</mapper>
