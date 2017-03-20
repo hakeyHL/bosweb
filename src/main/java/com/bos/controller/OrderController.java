@@ -35,10 +35,12 @@ public class OrderController extends BaseController {
     //ip:端口/Order/list
     @RequestMapping("list")
     //获取订单列表
-    public ModelAndView listOrders() {
-        String keyword = request.getParameter("keyword");
+    public ModelAndView listOrders(Order orde) {
+        if (orde != null) {
+            modelAndView.addObject("order", orde);
+        }
         //获取订单列表
-        List<Order> orders = orderService.listOrders(keyword);
+        List<Order> orders = orderService.listOrders(orde);
         modelAndView.addObject("orders", orders);
 
         //查询快递员表与车辆表获取快递员名称和车辆编号
@@ -63,7 +65,7 @@ public class OrderController extends BaseController {
     public ModelAndView addOrder(Order order) {
         orderService.addOrder(order);
         //增加完之后返回订单列表页面,所以调用本类listOrders方法
-        return this.listOrders();
+        return this.listOrders(new Order());
     }
 
 
@@ -72,11 +74,11 @@ public class OrderController extends BaseController {
     public ModelAndView delOrder(@PathVariable(value = "id") int id) {
         if (id <= 0) {
             //如果传来的id小于等于0则无法操作,直接跳转到订单列表页面
-            return this.listOrders();
+            return this.listOrders(new Order());
         }
         orderService.delOrder(id);
         //增加完之后返回订单列表页面,所以调用本类listOrders方法
-        return this.listOrders();
+        return this.listOrders(new Order());
     }
 
     //修改订单信息
@@ -84,11 +86,11 @@ public class OrderController extends BaseController {
     public ModelAndView updateOrder(Order order) {
         if (order == null || order.getId() == null) {
             //如果传来的id小于等于0或对象为空则无法操作,直接跳转到订单列表页面
-            return this.listOrders();
+            return this.listOrders(new Order());
         }
         orderService.updateOrder(order);
         //增加完之后返回订单列表页面,所以调用本类listOrders方法
-        return this.listOrders();
+        return this.listOrders(new Order());
     }
 
     /**
@@ -100,10 +102,10 @@ public class OrderController extends BaseController {
     public ModelAndView getOrderInfo(@PathVariable(value = "id") int id) {
         if (id <= 0) {
             //如果传来的id小于等于0则无法操作,直接跳转到订单列表页面
-            return this.listOrders();
+            return this.listOrders(new Order());
         }
         Order Order = orderService.getOrderById(id);
-        modelAndView.addObject("Order", Order);
+        modelAndView.addObject("order", Order);
         modelAndView.setViewName("layout/order/edit");
         return modelAndView;
     }

@@ -14,55 +14,34 @@
 <div id="page-wrapper">
 
     <div class="col-lg-12" style="margin: 20px"></div>
-    <form class="form-horizontal" action="<%=contextPath%>/courier/update" id="form_edit"
+    <form class="form-horizontal" action="<%=contextPath%>/car/update" id="form_edit"
           method="post" onsubmit="return dosubmit()">
 
-        <input type="hidden" name="id" value="${courier.id}">
+        <input type="hidden" name="id" value="${car.id}">
         <div class="form-group">
-            <label class="col-sm-3 control-label">姓名：</label>
+            <label class="col-sm-3 control-label">Brand：</label>
 
             <div class="col-sm-7">
-                <input type="text" name="name" class="form-control" value="${courier.name}" placeholder="快递员姓名">
+                <input type="text" name="brand" class="form-control" value="${car.brand}" placeholder="车辆品牌">
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label">负责的区域：</label>
+            <label class="col-sm-3 control-label">Model：</label>
 
             <div class="col-sm-7">
-                <input type="text" name="region" class="form-control" value="${courier.region}" placeholder="负责的区域">
+                <input type="text" name="model" class="form-control" value="${car.model}" placeholder="车辆型号">
             </div>
         </div>
-
-        <label class="col-sm-3 control-label">所有订单：</label>
 
         <div class="form-group">
-            <div class="row">
-                <div class="col-lg-12">
-                    <table class="table table-bordered table-hover table-condensed" style="font-size:12px;">
-                        <thead>
-                        <tr>
-                            <td>创建时间</td>
-                            <td>发件人</td>
-                            <td>收件人</td>
-                            <td>收件地址</td>
+            <label class="col-sm-3 control-label">Number：</label>
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${orders}" var="data">
-                            <tr>
-                                <td>${data.createtime}</td>
-                                <td>${data.sender}</td>
-                                <td>${data.receiver}</td>
-                                <td>${data.receiveraddress}</td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-sm-7">
+                <input type="text" name="number" class="form-control" value="${car.number}" placeholder="车辆牌号">
             </div>
         </div>
+
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">
                 <button type="submit" class="btn btn-default" id="button_submit">确定</button>

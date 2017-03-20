@@ -14,55 +14,65 @@
 <div id="page-wrapper">
 
     <div class="col-lg-12" style="margin: 20px"></div>
-    <form class="form-horizontal" action="<%=contextPath%>/courier/update" id="form_edit"
+    <form class="form-horizontal" action="<%=contextPath%>/order/update" id="form_edit"
           method="post" onsubmit="return dosubmit()">
 
-        <input type="hidden" name="id" value="${courier.id}">
+        <input type="hidden" name="id" value="${order.id}">
+        <input type="hidden" name="createtime" value="${order.createtime}">
+        <input type="hidden" name="updatetime" value="${order.updatetime}">
         <div class="form-group">
-            <label class="col-sm-3 control-label">姓名：</label>
+            <label class="col-sm-3 control-label">发件人：</label>
 
             <div class="col-sm-7">
-                <input type="text" name="name" class="form-control" value="${courier.name}" placeholder="快递员姓名">
+                <input type="text" name="sender" class="form-control" value="${order.sender}" placeholder="发件人姓名">
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label">负责的区域：</label>
+            <label class="col-sm-3 control-label">发件人号码：</label>
 
             <div class="col-sm-7">
-                <input type="text" name="region" class="form-control" value="${courier.region}" placeholder="负责的区域">
+                <input type="text" name="senderphone" class="form-control" value="${order.senderphone}"
+                       placeholder="发件人号码">
             </div>
         </div>
-
-        <label class="col-sm-3 control-label">所有订单：</label>
 
         <div class="form-group">
-            <div class="row">
-                <div class="col-lg-12">
-                    <table class="table table-bordered table-hover table-condensed" style="font-size:12px;">
-                        <thead>
-                        <tr>
-                            <td>创建时间</td>
-                            <td>发件人</td>
-                            <td>收件人</td>
-                            <td>收件地址</td>
+            <label class="col-sm-3 control-label">发件人地址：</label>
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${orders}" var="data">
-                            <tr>
-                                <td>${data.createtime}</td>
-                                <td>${data.sender}</td>
-                                <td>${data.receiver}</td>
-                                <td>${data.receiveraddress}</td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-sm-7">
+                <input type="text" name="senderaddress" class="form-control" value="${order.senderaddress}"
+                       placeholder="发件人地址">
             </div>
         </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">收件人：</label>
+
+            <div class="col-sm-7">
+                <input type="text" name="receiver" class="form-control" value="${order.receiver}" placeholder="收件人姓名">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">收件人号码：</label>
+
+            <div class="col-sm-7">
+                <input type="text" name="receiverphone" class="form-control" value="${order.receiverphone}"
+                       placeholder="收件人号码">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">收件人地址：</label>
+
+            <div class="col-sm-7">
+                <input type="text" name="receiveraddress" class="form-control" value="${order.receiveraddress}"
+                       placeholder="收件人地址">
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">
                 <button type="submit" class="btn btn-default" id="button_submit">确定</button>

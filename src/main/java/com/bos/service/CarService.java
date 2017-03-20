@@ -3,6 +3,7 @@ package com.bos.service;
 import com.bos.mapper.CarMapper;
 import com.bos.model.Car;
 import com.bos.model.CarExample;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,9 +23,22 @@ public class CarService {
      *
      * @return 车辆列表
      */
-    public List<Car> listCars() {
+    public List<Car> listCars(Car car) {
         CarExample CarExample = new CarExample();
-        CarExample.createCriteria().andIdIsNotNull();
+        com.bos.model.CarExample.Criteria criteria = CarExample.createCriteria();
+        criteria.andIdIsNotNull();
+        //根据车的品牌
+        if (StringUtils.isNotEmpty(car.getBrand())) {
+            criteria.andBrandLike("%" + car.getBrand() + "%");
+        }
+        //根据车的型号
+        if (StringUtils.isNotEmpty(car.getModel())) {
+            criteria.andModelLike("%" + car.getModel() + "%");
+        }
+        //根据车的牌号
+        if (StringUtils.isNotEmpty(car.getNumber())) {
+            criteria.andNumberLike("%" + car.getNumber() + "%");
+        }
         return carMapper.selectByExample(CarExample);
     }
 

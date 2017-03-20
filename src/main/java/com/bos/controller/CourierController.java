@@ -31,9 +31,11 @@ public class CourierController extends BaseController {
     //ip:端口/courier/list
     @RequestMapping("list")
     //获取快递员列表
-    public ModelAndView listCouriers() {
-        String keyword = request.getParameter("keyword");
-        List<Courier> couriers = courierService.listCouriers(keyword);
+    public ModelAndView listCouriers(Courier courier) {
+        if (courier != null) {
+            modelAndView.addObject("car", courier);
+        }
+        List<Courier> couriers = courierService.listCouriers(courier.getName());
         modelAndView.addObject("couriers", couriers);
         modelAndView.setViewName("layout/courier/list");
         return modelAndView;
@@ -44,7 +46,7 @@ public class CourierController extends BaseController {
     public ModelAndView addCourier(Courier courier) {
         courierService.addCourier(courier);
         //增加完之后返回快递员列表页面,所以调用本类listCouriers方法
-        return this.listCouriers();
+        return this.listCouriers(new Courier());
     }
 
 
@@ -53,7 +55,7 @@ public class CourierController extends BaseController {
     public ModelAndView delCourier(@PathVariable(value = "id") int id) {
         courierService.delCourier(id);
         //返回快递员列表页面,所以调用本类listCouriers方法
-        return this.listCouriers();
+        return this.listCouriers(new Courier());
     }
 
     //删除多个快递员
@@ -73,7 +75,7 @@ public class CourierController extends BaseController {
             courierService.updateCourier(courier);
         }
         //返回快递员列表页面,所以调用本类listCouriers方法
-        return this.listCouriers();
+        return this.listCouriers(new Courier());
     }
 
     /**

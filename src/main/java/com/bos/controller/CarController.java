@@ -25,8 +25,11 @@ public class CarController extends BaseController {
     //ip:端口/Car/list
     @RequestMapping("list")
     //获取车辆列表
-    public ModelAndView listCars() {
-        List<Car> cars = carService.listCars();
+    public ModelAndView listCars(Car car) {
+        if (car != null) {
+            modelAndView.addObject("car", car);
+        }
+        List<Car> cars = carService.listCars(car);
         modelAndView.addObject("cars", cars);
         modelAndView.setViewName("layout/car/list");
         return modelAndView;
@@ -37,7 +40,7 @@ public class CarController extends BaseController {
     public ModelAndView addCar(Car car) {
         carService.addCar(car);
         //增加完之后返回车辆列表页面,所以调用本类listCars方法
-        return this.listCars();
+        return this.listCars(new Car());
     }
 
 
@@ -46,11 +49,11 @@ public class CarController extends BaseController {
     public ModelAndView delCar(@PathVariable(value = "id") int id) {
         if (id <= 0) {
             //如果传来的id小于等于0则无法操作,直接跳转到车辆列表页面
-            return this.listCars();
+            return this.listCars(new Car());
         }
         carService.delCar(id);
         //增加完之后返回车辆列表页面,所以调用本类listCars方法
-        return this.listCars();
+        return this.listCars(new Car());
     }
 
     //修改车辆信息
@@ -58,11 +61,11 @@ public class CarController extends BaseController {
     public ModelAndView updateCar(Car car) {
         if (car == null || car.getId() <= 0) {
             //如果传来的id小于等于0或对象为空则无法操作,直接跳转到车辆列表页面
-            return this.listCars();
+            return this.listCars(new Car());
         }
         carService.updateCar(car);
         //增加完之后返回车辆列表页面,所以调用本类listCars方法
-        return this.listCars();
+        return this.listCars(new Car());
     }
 
     /**
@@ -74,10 +77,10 @@ public class CarController extends BaseController {
     public ModelAndView getCarInfo(@PathVariable(value = "id") int id) {
         if (id <= 0) {
             //如果传来的id小于等于0则无法操作,直接跳转到车辆列表页面
-            return this.listCars();
+            return this.listCars(new Car());
         }
         Car Car = carService.getCarById(id);
-        modelAndView.addObject("Car", Car);
+        modelAndView.addObject("car", Car);
         modelAndView.setViewName("layout/car/edit");
         return modelAndView;
     }

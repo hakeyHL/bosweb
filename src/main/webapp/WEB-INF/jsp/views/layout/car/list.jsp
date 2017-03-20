@@ -17,18 +17,32 @@
 
     <div class="col-lg-12" style="margin: 10px"></div>
     <div class="row" style="margin: 5px; font-size: 12px">
-        <span>添加快递员: <a href="<%=contextPath%>/courier/info/-1">手动添加快递员(create Courier)</a></span>
+        <span>添加车辆: <a href="<%=contextPath%>/car/info/-1">手动添加车辆(create car)</a></span>
     </div>
     <div class="col-lg-8">
         <div name="appType" class="input-group">
-            <span class="input-group-addon">快递员查询</span>
+            <span class="input-group-addon">车辆查询</span>
 
-            <form id="reListDealByType" action="/courier/list" method="get">
+            <form id="reListDealByType" action="/car/list" method="get">
                 <div class="col-lg-4">
-                    <span class="input-group-addon">关键字</span>
-                    <input type="text" name="keyword" class="form-control" placeholder="Search for..."
-                           value="${keyword}">
+                    <span class="input-group-addon">brand(品牌)</span>
+                    <input type="text" name="brand" class="form-control" placeholder="Brand"
+                           value="${car.brand}">
                 </div>
+
+                <div class="col-lg-4">
+                    <span class="input-group-addon">model(型号)</span>
+                    <input type="text" name="model" class="form-control" placeholder="Model"
+                           value="${car.model}">
+                </div>
+
+                <div class="col-lg-4">
+                    <span class="input-group-addon">carNumber(车牌号)</span>
+                    <input type="text" name="number" class="form-control" placeholder="Number"
+                           value="${car.number}">
+                </div>
+
+
                 <div class="col-lg-2">
                     <button type="submit" class="btn btn-primary">查询</button>
                 </div>
@@ -86,7 +100,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <button type="button" class="btn btn-primary" onclick="batchDelete('<%=contextPath%>/courier/batchDelete')"
+            <button type="button" class="btn btn-primary" onclick="batchDelete('<%=contextPath%>/car/batchDelete')"
                     data-toggle="modal" data-target="#confirm-delete">批量删除
             </button>
         </div>
@@ -99,21 +113,23 @@
                 <tr>
                     <td><input type="checkbox" id="checkAll"/>全选</td>
                     <td>ID</td>
-                    <td>姓名</td>
-                    <td>region区域</td>
+                    <td>Brand</td>
+                    <td>Model</td>
+                    <td>Number</td>
                     <td colspan="3">操作</td>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${couriers}" var="data">
+                <c:forEach items="${cars}" var="data">
                     <tr>
                         <td><input type="checkbox" name="subBox" value="${data.id}"/></td>
                         <td>${data.id}</td>
-                        <td>${data.name}</td>
-                        <td>${data.region}</td>
+                        <td>${data.brand}</td>
+                        <td>${data.model}</td>
+                        <td>${data.number}</td>
                         <td><a href="info/${data.id}">编辑</a></td>
                         <td><a href="javascript:void(0)"
-                               onclick="deleteById('<%=contextPath%>/courier/del/${data.id}')"
+                               onclick="deleteById('<%=contextPath%>/car/del/${data.id}')"
                                data-toggle="modal" data-target="#confirm-delete">删除</a></td>
                     </tr>
                 </c:forEach>

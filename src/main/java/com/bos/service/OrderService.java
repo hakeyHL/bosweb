@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,13 +26,41 @@ public class OrderService {
      *
      * @return 订单列表
      */
-    public List<Order> listOrders(String keyword) {
+    public List<Order> listOrders(Order order) {
         OrderExample OrderExample = new OrderExample();
         com.bos.model.OrderExample.Criteria criteria = OrderExample.createCriteria();
         criteria.andIdIsNotNull();
-        if (StringUtils.isNotEmpty(keyword)) {
-            criteria.andSenderLike(keyword + "%");
+
+        //发件人姓名
+        if (StringUtils.isNotEmpty(order.getSender())) {
+            criteria.andSenderLike("%" + order.getSender() + "%");
         }
+
+        //发件人号码
+        if (StringUtils.isNotEmpty(order.getSenderphone())) {
+            criteria.andSenderphoneLike("%" + order.getSenderphone() + "%");
+        }
+
+        //发件人地址
+        if (StringUtils.isNotEmpty(order.getSenderaddress())) {
+            criteria.andSenderaddressLike("%" + order.getSenderaddress() + "%");
+        }
+
+        //收件人姓名
+        if (StringUtils.isNotEmpty(order.getReceiver())) {
+            criteria.andReceiverLike("%" + order.getReceiver() + "%");
+        }
+
+        //收件人号码
+        if (StringUtils.isNotEmpty(order.getReceiverphone())) {
+            criteria.andReceiverphoneLike("%" + order.getReceiverphone() + "%");
+        }
+
+        //收件人地址
+        if (StringUtils.isNotEmpty(order.getReceiveraddress())) {
+            criteria.andReceiveraddressLike("%" + order.getReceiveraddress() + "%");
+        }
+
         return orderMapper.selectByExample(OrderExample);
     }
 
@@ -61,6 +90,7 @@ public class OrderService {
      * @param order
      */
     public void updateOrder(Order order) {
+        order.setUpdatetime(new Date());
         //根据主键更新
         orderMapper.updateByPrimaryKey(order);
     }

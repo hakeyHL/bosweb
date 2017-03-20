@@ -16,18 +16,45 @@
     <div class="alert alert-warning" id="delete_fail" role="alert" style="display: none">删除失败</div>
 
     <div class="col-lg-12" style="margin: 10px"></div>
-    <div class="row" style="margin: 5px; font-size: 12px">
-        <span>添加快递员: <a href="<%=contextPath%>/courier/info/-1">手动添加快递员(create Courier)</a></span>
-    </div>
     <div class="col-lg-8">
         <div name="appType" class="input-group">
-            <span class="input-group-addon">快递员查询</span>
+            <span class="input-group-addon">订单查询</span>
 
-            <form id="reListDealByType" action="/courier/list" method="get">
+            <form id="reListDealByType" action="/order/list" method="get">
                 <div class="col-lg-4">
-                    <span class="input-group-addon">关键字</span>
-                    <input type="text" name="keyword" class="form-control" placeholder="Search for..."
-                           value="${keyword}">
+                    <span class="input-group-addon">发件人</span>
+                    <input type="text" name="sender" class="form-control" placeholder="发件人"
+                           value="${order.sender}">
+                </div>
+
+                <div class="col-lg-4">
+                    <span class="input-group-addon">发件号码</span>
+                    <input type="text" name="senderphone" class="form-control" placeholder="发件号码"
+                           value="${order.senderphone}">
+                </div>
+
+                <div class="col-lg-4">
+                    <span class="input-group-addon">发件人地址</span>
+                    <input type="text" name="senderaddress" class="form-control" placeholder="发件地址"
+                           value="${order.senderaddress}">
+                </div>
+
+                <div class="col-lg-4">
+                    <span class="input-group-addon">收件人</span>
+                    <input type="text" name="receiver" class="form-control" placeholder="收件人"
+                           value="${order.receiver}">
+                </div>
+
+                <div class="col-lg-4">
+                    <span class="input-group-addon">收件人号码</span>
+                    <input type="text" name="receiverphone" class="form-control" placeholder="收件人号码"
+                           value="${order.receiverphone}">
+                </div>
+
+                <div class="col-lg-4">
+                    <span class="input-group-addon">收件人地址</span>
+                    <input type="text" name="receiveraddress" class="form-control" placeholder="收件人地址"
+                           value="${order.receiveraddress}">
                 </div>
                 <div class="col-lg-2">
                     <button type="submit" class="btn btn-primary">查询</button>
@@ -86,7 +113,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <button type="button" class="btn btn-primary" onclick="batchDelete('<%=contextPath%>/courier/batchDelete')"
+            <button type="button" class="btn btn-primary" onclick="batchDelete('<%=contextPath%>/order/batchDelete')"
                     data-toggle="modal" data-target="#confirm-delete">批量删除
             </button>
         </div>
@@ -99,21 +126,55 @@
                 <tr>
                     <td><input type="checkbox" id="checkAll"/>全选</td>
                     <td>ID</td>
-                    <td>姓名</td>
-                    <td>region区域</td>
+                    <td>创建时间</td>
+                    <td>更新时间</td>
+
+                    <td>发件人</td>
+                    <td>发件人号码</td>
+                    <td>发件人地址</td>
+
+                    <td>收件人</td>
+                    <td>收件人号码</td>
+                    <td>收件人地址</td>
+
+                    <td>运输车辆编号</td>
+                    <td>配送员</td>
+                    <td>是否取消</td>
                     <td colspan="3">操作</td>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${couriers}" var="data">
+                <c:forEach items="${orders}" var="data">
                     <tr>
                         <td><input type="checkbox" name="subBox" value="${data.id}"/></td>
                         <td>${data.id}</td>
-                        <td>${data.name}</td>
-                        <td>${data.region}</td>
+                        <td><fmt:formatDate value="${data.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                        <td><fmt:formatDate value="${data.updatetime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+
+                        <td>${data.sender}</td>
+                        <td>${data.senderphone}</td>
+                        <td>${data.senderaddress}</td>
+
+                        <td>${data.receiver}</td>
+                        <td>${data.receiverphone}</td>
+                        <td>${data.receiveraddress}</td>
+
+                        <td>${data.vehicleNumber}</td>
+                        <td>${data.courierName}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${data.show == '1'}">
+                                    是
+                                </c:when>
+                                <c:when test="${data.show == '0'}">
+                                    否
+                                </c:when>
+                            </c:choose>
+                        </td>
+
                         <td><a href="info/${data.id}">编辑</a></td>
                         <td><a href="javascript:void(0)"
-                               onclick="deleteById('<%=contextPath%>/courier/del/${data.id}')"
+                               onclick="deleteById('<%=contextPath%>/order/del/${data.id}')"
                                data-toggle="modal" data-target="#confirm-delete">删除</a></td>
                     </tr>
                 </c:forEach>

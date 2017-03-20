@@ -52,7 +52,7 @@
                         <tbody>
                         <c:forEach items="${orders}" var="data">
                             <tr>
-                                <td>${data.createtime}</td>
+                                <td><fmt:formatDate value="${data.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                 <td>${data.sender}</td>
                                 <td>${data.receiver}</td>
                                 <td>${data.receiveraddress}</td>

@@ -29,7 +29,7 @@ public class CourierService {
         CourierExample courierExample = new CourierExample();
         CourierExample.Criteria criteria = courierExample.createCriteria();
         criteria.andIdIsNotNull();
-        if (StringUtils.isNoneEmpty(keyword)) {
+        if (StringUtils.isNotEmpty(keyword)) {
             criteria.andNameLike(keyword + "%");
         }
         return courierMapper.selectByExample(courierExample);

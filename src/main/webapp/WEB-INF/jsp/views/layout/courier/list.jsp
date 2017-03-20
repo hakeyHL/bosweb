@@ -16,15 +16,18 @@
     <div class="alert alert-warning" id="delete_fail" role="alert" style="display: none">删除失败</div>
 
     <div class="col-lg-12" style="margin: 10px"></div>
+    <div class="row" style="margin: 5px; font-size: 12px">
+        <span>添加快递员: <a href="<%=contextPath%>/courier/info/-1">手动添加快递员(create Courier)</a></span>
+    </div>
     <div class="col-lg-8">
         <div name="appType" class="input-group">
-            <span class="input-group-addon">订单查询</span>
+            <span class="input-group-addon">快递员查询</span>
 
-            <form id="reListDealByType" action="/order/list" method="get">
+            <form id="reListDealByType" action="/courier/list" method="get">
                 <div class="col-lg-4">
-                    <span class="input-group-addon">关键字</span>
-                    <input type="text" name="keyword" class="form-control" placeholder="Search for..."
-                           value="${keyword}">
+                    <span class="input-group-addon">快递员姓名</span>
+                    <input type="text" name="name" class="form-control" placeholder="Search"
+                           value="${courier.name}">
                 </div>
                 <div class="col-lg-2">
                     <button type="submit" class="btn btn-primary">查询</button>
@@ -83,7 +86,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <button type="button" class="btn btn-primary" onclick="batchDelete('<%=contextPath%>/order/batchDelete')"
+            <button type="button" class="btn btn-primary" onclick="batchDelete('<%=contextPath%>/courier/batchDelete')"
                     data-toggle="modal" data-target="#confirm-delete">批量删除
             </button>
         </div>
@@ -96,54 +99,21 @@
                 <tr>
                     <td><input type="checkbox" id="checkAll"/>全选</td>
                     <td>ID</td>
-                    <td>创建时间</td>
-                    <td>更新时间</td>
-
-                    <td>发件人</td>
-                    <td>发件人号码</td>
-                    <td>发件人地址</td>
-
-                    <td>收件人</td>
-                    <td>收件人号码</td>
-                    <td>收件人地址</td>
-
-                    <td>运输车辆编号</td>
-                    <td>是否取消</td>
+                    <td>姓名</td>
+                    <td>region区域</td>
                     <td colspan="3">操作</td>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${orders}" var="data">
+                <c:forEach items="${couriers}" var="data">
                     <tr>
                         <td><input type="checkbox" name="subBox" value="${data.id}"/></td>
                         <td>${data.id}</td>
-                        <td>${data.createtimeStr}</td>
-                        <td>${data.updatetimeStr}</td>
-
-                        <td>${data.sender}</td>
-                        <td>${data.senderphone}</td>
-                        <td>${data.senderaddress}</td>
-
-                        <td>${data.receiver}</td>
-                        <td>${data.receiverphone}</td>
-                        <td>${data.receiveraddress}</td>
-
-                        <td>${data.courierName}</td>
-                        <td>${data.vehicleNumber}</td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${data.show == '1'}">
-                                    是
-                                </c:when>
-                                <c:when test="${data.push == '0'}">
-                                    否
-                                </c:when>
-                            </c:choose>
-                        </td>
-
+                        <td>${data.name}</td>
+                        <td>${data.region}</td>
                         <td><a href="info/${data.id}">编辑</a></td>
                         <td><a href="javascript:void(0)"
-                               onclick="deleteById('<%=contextPath%>/order/del/${data.id}')"
+                               onclick="deleteById('<%=contextPath%>/courier/del/${data.id}')"
                                data-toggle="modal" data-target="#confirm-delete">删除</a></td>
                     </tr>
                 </c:forEach>

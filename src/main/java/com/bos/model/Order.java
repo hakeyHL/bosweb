@@ -1,7 +1,5 @@
 package com.bos.model;
 
-import com.bos.utils.TimeUtils;
-
 import java.util.Date;
 
 public class Order {
@@ -31,8 +29,6 @@ public class Order {
 
     private Integer show;
 
-    private String createTimeStr;
-    private String updateTimeStr;
     private String courierName;
 
     private String vehicleNumber;
@@ -54,13 +50,6 @@ public class Order {
         this.courierName = courierName;
     }
 
-    public String getCreateTimeStr() {
-        return TimeUtils.getYMDHMSString(this.createtime);
-    }
-
-    public String getUpdateTimeStr() {
-        return TimeUtils.getYMDHMSString(this.updatetime);
-    }
 
     public Integer getId() {
         return id;
