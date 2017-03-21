@@ -20,6 +20,8 @@
         <input type="hidden" name="id" value="${order.id}">
         <input type="hidden" name="createtime" value="${order.createtime}">
         <input type="hidden" name="updatetime" value="${order.updatetime}">
+        <input type="hidden" name="updatetime" value="${order.show}">
+        <input type="hidden" name="updatetime" value="${order.postCode}">
         <div class="form-group">
             <label class="col-sm-3 control-label">发件人：</label>
 
@@ -72,6 +74,43 @@
                        placeholder="收件人地址">
             </div>
         </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">快递员：</label>
+
+            <div class="col-sm-7">
+                <select id="typeSelect" class="form-control" name="courierid">
+                    <option
+                            selected value="${order.courierid}">${order.courierName}
+                    </option>
+                    <%--循环展示--%>
+                    <c:forEach items="${allCouriers}" var="item">
+                        <option
+                                value="${item.id}">${item.name}
+                        </option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">运输车辆：</label>
+
+            <div class="col-sm-7">
+                <select id="carSelected" class="form-control" name="carnumber">
+                    <option
+                            selected value="${order.carnumber}">${order.vehicleNumber}
+                    </option>
+                    <%--循环展示--%>
+                    <c:forEach items="${allCars}" var="item">
+                        <option
+                                value="${item.id}">${item.number}
+                        </option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+
 
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">

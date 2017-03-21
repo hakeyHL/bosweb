@@ -15,5 +15,4 @@ public class ShowHomeController {
     public ModelAndView showMain() {
         return new ModelAndView("layout/index");
     }
-
 }

@@ -30,7 +30,9 @@ public class OrderService {
         OrderExample OrderExample = new OrderExample();
         com.bos.model.OrderExample.Criteria criteria = OrderExample.createCriteria();
         criteria.andIdIsNotNull();
-
+        if (order.getShow() != null && order.getShow() >= 0) {
+            criteria.andShowEqualTo(order.getShow());
+        }
         //发件人姓名
         if (StringUtils.isNotEmpty(order.getSender())) {
             criteria.andSenderLike("%" + order.getSender() + "%");
@@ -67,10 +69,15 @@ public class OrderService {
     /**
      * 添加
      *
-     * @param Order
+     * @param order
      */
-    public void addOrder(Order Order) {
-        orderMapper.insert(Order);
+    public void addOrder(Order order) {
+        Date currentDate = new Date();
+        order.setCreatetime(currentDate);
+        order.setUpdatetime(currentDate);
+        order.setPostcode("00000");
+        order.setShow(0);
+        orderMapper.insert(order);
     }
 
     /**
@@ -82,6 +89,11 @@ public class OrderService {
     public void delOrder(int id) {
         //根据主键删除
         orderMapper.deleteByPrimaryKey(id);
+       /* Order order = orderMapper.selectByPrimaryKey(id);
+        if (order != null) {
+            order.setShow(0);
+        }
+        orderMapper.updateByPrimaryKey(order);*/
     }
 
     /**
@@ -129,7 +141,7 @@ public class OrderService {
     public void batchDelCourier(@RequestBody int[] ids) {
         for (int id : ids) {
             //根据主键删除
-            orderMapper.deleteByPrimaryKey(id);
+            this.delOrder(id);
         }
     }
 }

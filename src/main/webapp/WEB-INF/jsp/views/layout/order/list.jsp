@@ -56,6 +56,19 @@
                     <input type="text" name="receiveraddress" class="form-control" placeholder="收件人地址"
                            value="${order.receiveraddress}">
                 </div>
+                <div class="col-lg-4">
+                    <select id="typeSelect" class="form-control" name="show">
+                        <option value="-1">
+                            全部
+                        </option>
+                        <option
+                                <c:if test="${order.show==0}">selected</c:if> value="0">已取消
+                        </option>
+                        <option
+                                <c:if test="${order.show==1}">selected</c:if> value="1">未取消
+                        </option>
+                    </select>
+                </div>
                 <div class="col-lg-2">
                     <button type="submit" class="btn btn-primary">查询</button>
                 </div>
@@ -163,11 +176,11 @@
                         <td>${data.courierName}</td>
                         <td>
                             <c:choose>
-                                <c:when test="${data.show == '1'}">
-                                    是
-                                </c:when>
                                 <c:when test="${data.show == '0'}">
-                                    否
+                                    已取消
+                                </c:when>
+                                <c:when test="${data.show == '1'}">
+                                    未取消
                                 </c:when>
                             </c:choose>
                         </td>

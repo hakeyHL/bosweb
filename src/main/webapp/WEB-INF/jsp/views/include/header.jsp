@@ -29,7 +29,7 @@
     <script src="<%=contextPath%>/static/js/bootstrap/bootstrap-typeahead.min.js"></script>
     <script src="<%=contextPath%>/static/js/bootstrap/bootstrap-fileupload.js"></script>
     <script src="<%=contextPath%>/static/js/bootstrap/bootstrap-dialog.js"></script>
-
+    <script src="<%=contextPath%>/static/js/bootstrap/bootstrapValidator.js"></script>
     <script src="<%=contextPath%>/static/js/jquery/validate/jquery.validate.min.js"></script>
 
     <script src="<%=contextPath%>/static/js/hcharts/highcharts.js"></script>

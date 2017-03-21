@@ -46,26 +46,25 @@ public class OrderController extends BaseController {
         //查询快递员表与车辆表获取快递员名称和车辆编号
         for (Order order : orders) {
             //根据快递员id获取快递员
-            Courier courier = courierService.getCourierById(order.getCourierid());
-            if (courier != null) {
-                order.setCourierName(courier.getName());
+            if (order.getCourierid() != null) {
+                getCourierNameForOrder(order);
             }
             //根据车辆id获取车辆编号
-            Car car = carService.getCarById(order.getCarnumber());
-            if (car != null) {
-                order.setVehicleNumber(car.getNumber());
+            if (order.getCarnumber() != null) {
+                getCarNumberForOrder(order);
             }
         }
         modelAndView.setViewName("layout/order/list");
         return modelAndView;
     }
 
+
     //增加一个订单
     @RequestMapping("add")
     public ModelAndView addOrder(Order order) {
         orderService.addOrder(order);
         //增加完之后返回订单列表页面,所以调用本类listOrders方法
-        return this.listOrders(new Order());
+        return new ModelAndView("success");
     }
 
 
@@ -104,8 +103,16 @@ public class OrderController extends BaseController {
             //如果传来的id小于等于0则无法操作,直接跳转到订单列表页面
             return this.listOrders(new Order());
         }
-        Order Order = orderService.getOrderById(id);
-        modelAndView.addObject("order", Order);
+        Order order = orderService.getOrderById(id);
+        if (order != null) {
+            getCarNumberForOrder(order);
+            getCourierNameForOrder(order);
+            modelAndView.addObject("order", order);
+        }
+        List<Car> cars = carService.listCars(new Car());
+        List<Courier> couriers = courierService.listCouriers("");
+        modelAndView.addObject("allCars", cars);
+        modelAndView.addObject("allCouriers", couriers);
         modelAndView.setViewName("layout/order/edit");
         return modelAndView;
     }
@@ -121,5 +128,19 @@ public class OrderController extends BaseController {
     public boolean batchDelCourier(@RequestParam(value = "ids[]") int[] ids) {
         orderService.batchDelCourier(ids);
         return true;
+    }
+
+    private void getCarNumberForOrder(Order order) {
+        Car car = carService.getCarById(order.getCarnumber());
+        if (car != null) {
+            order.setVehicleNumber(car.getNumber());
+        }
+    }
+
+    private void getCourierNameForOrder(Order order) {
+        Courier courier = courierService.getCourierById(order.getCourierid());
+        if (courier != null) {
+            order.setCourierName(courier.getName());
+        }
     }
 }
