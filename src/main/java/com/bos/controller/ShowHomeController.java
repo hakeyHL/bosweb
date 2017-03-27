@@ -13,6 +13,7 @@ public class ShowHomeController {
 
     @RequestMapping("/showIndex")
     public ModelAndView showMain() {
+        //跳转到WEB-INF/jsp/views/layout/index.jsp页面
         return new ModelAndView("layout/index");
     }
 }

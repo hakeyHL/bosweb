@@ -12,9 +12,9 @@
     <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
           init-method="init" destroy-method="close">
         <property name="url"
-                  value="jdbc:mysql://101.200.54.205:3306/bos?allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
-        <property name="username" value="hasoffer"/>
-        <property name="password" value="123456"/>
+                  value="jdbc:mysql://数据库的地址:3306/bos?allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+        <property name="username" value="用户名"/>
+        <property name="password" value="密码"/>
 
         <!-- 初始化连接大小 -->
         <property name="initialSize" value="10"/>
@@ -46,24 +46,29 @@
         <property name="filters" value="mergeStat"/>
     </bean>
 
-
+    <!--事务配置-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--数据源配置-->
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <!--支持注解声明的事务-->
     <tx:annotation-driven transaction-manager="transactionManager" order="50"/>
 
-
+    <!--mybatis的sqlSessionFactory配置-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--指明数据源是哪个-->
         <property name="dataSource" ref="dataSource"/>
-        <!-- 全局sqlMapConfig.xml公共配置文件路径 -->
+        <!-- mybatis配置文件地址 -->
         <property name="configLocation" value="classpath:/spring/mybatis.xml"/>
         <property name="mapperLocations" value="classpath:/mybatis/mapper/*.xml"></property>
     </bean>
 
-
+    <!--mybatis配置-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--扫描包-->
         <property name="basePackage" value="com.bos.mapper"/>
+        <!--工厂Bean的名称为sqlSessionFactory-->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 

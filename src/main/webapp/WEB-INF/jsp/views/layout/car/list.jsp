@@ -9,7 +9,7 @@
 
 <jsp:include page="../../include/header.jsp"/>
 <jsp:include page="../../include/left.jsp"/>
-
+<%--车辆列表页面--%>
 <div id="page-wrapper">
     <!-- 删除结果提示 -->
     <div class="alert alert-success" id="delete_success" role="alert" style="display: none">删除成功</div>
@@ -17,6 +17,7 @@
 
     <div class="col-lg-12" style="margin: 10px"></div>
     <div class="row" style="margin: 5px; font-size: 12px">
+        <%--手动添加车辆事件,此时传的id是-1,是复用了车辆详情接口--%>
         <span>添加车辆: <a href="<%=contextPath%>/car/info/-1">手动添加车辆(create car)</a></span>
     </div>
     <div class="col-lg-8">
@@ -100,6 +101,7 @@
 
     <div class="row">
         <div class="col-lg-12">
+            <%--批量删除车辆--%>
             <button type="button" class="btn btn-primary" onclick="batchDelete('<%=contextPath%>/car/batchDelete')"
                     data-toggle="modal" data-target="#confirm-delete">批量删除
             </button>
@@ -111,7 +113,7 @@
             <table class="table table-bordered table-hover table-condensed" style="font-size:12px;">
                 <thead>
                 <tr>
-                    <td><input type="checkbox" id="checkAll"/>全选</td>
+                    <td><input type="checkbox" id="checkAll"/>选择</td>
                     <td>ID</td>
                     <td>Brand</td>
                     <td>Model</td>
@@ -127,8 +129,10 @@
                         <td>${data.brand}</td>
                         <td>${data.model}</td>
                         <td>${data.number}</td>
+                            <%--调用车辆详情接口跳转到车辆编辑页面--%>
                         <td><a href="info/${data.id}">编辑</a></td>
                         <td><a href="javascript:void(0)"
+                            <%--删除车辆--%>
                                onclick="deleteById('<%=contextPath%>/car/del/${data.id}')"
                                data-toggle="modal" data-target="#confirm-delete">删除</a></td>
                     </tr>
@@ -136,35 +140,41 @@
                 </tbody>
             </table>
         </div>
-        <%--page--%>
     </div>
 
     <script>
         function deleteById(url) {
             $('#url').val(url);//给会话中的隐藏属性URL赋值
+
+            //显示删除确认窗口
             $('#deleteModel').modal();
         }
 
         function urlSubmit() {
+            /*删除车辆*/
             var url = $.trim($("#url").val());//获取会话中的隐藏属性URL
             $.ajax({
                 url: url,
                 type: 'GET',
+                /*删除成功*/
                 success: function (result) {
                     if (result) {
                         $("#delete_success").css("display", "block").hide(3000);
                         window.location.reload();
                     }
                 },
+                //删除失败
                 error: function (xhr, textStatus, errorThrown) {
                     $("#delete_fail").css("display", "block").hide(3000);
                 }
             });
         }
 
+        /*批量删除js*/
         function batchDelete(batchUrl) {
 
             var arr = new Array();
+            /*获取已选择的车辆的id列表放入集合中*/
             $("input[name='subBox']:checked").each(function () {
                 arr.push($(this).val());
             });
@@ -182,6 +192,7 @@
             $('#batchDeleteModel').modal();
         }
 
+        /*执行批量删除操作*/
         function batchUrlSubmit() {
             var url = $.trim($("#batchUrl").val());//获取会话中的隐藏属性URL
 

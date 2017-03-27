@@ -6,6 +6,7 @@
 
 <html>
 <head>
+    <%--引入一些js和css样式--%>
     <meta charset="utf-8">
     <title>Bos-Admin</title>
     <link rel="shortcut icon" href="/static/image/favicon.ico">

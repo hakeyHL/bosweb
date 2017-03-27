@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div id="wrapper">
-    <!-- Navigation -->
+    <%--左侧导航--%>
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -12,7 +12,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">${user.name}上午,下午,晚上好!</a>
+            <a class="navbar-brand" href="/">欢迎您!</a>
         </div>
         <!-- /.navbar-header -->
 

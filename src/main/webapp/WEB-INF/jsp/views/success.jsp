@@ -6,16 +6,21 @@
             + request.getServerName() + ":" + request.getServerPort()
             + contextPath + "/";
 %>
+<%--用户下单成功提示页面--%>
 <jsp:include page="include/header.jsp"/>
 <body>
+<%--bootstrap的一个modal可以理解为一个小窗口--%>
 <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+            <%--窗体的header--%>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
+                <%--窗体title--%>
                 <h4 class="modal-title">下单成功</h4>
             </div>
+            <%--窗体内容--%>
             <div class="modal-body">
                 <p>感谢您的光临,祝您生活愉快!</p>
             </div>
@@ -28,10 +33,14 @@
 </body>
 
 <script type="text/javascript" language="JavaScript">
+    /*js脚本,用于在进入页面就执行窗体的show方法让窗体展示出来,因为窗体是默认隐藏的*/
     $(function () {
+        //设置窗体为显示
         $('#myModal').modal('show');
 
+        //当点击确定按钮执行的代码
         $('#ensure').click(function () {
+            /*跳转到首页下单页面*/
             $(window).attr('location', '<%=basePath%>');
         });
     });

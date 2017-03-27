@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
        default-autowire="byName">
 
-    <!-- 加载Spring配置文件 -->
+    <!-- 加载Spring配置文件 resources下spring下的所有xml配置文件-->
     <import resource="classpath*:spring/*.xml"/>
 
 </beans>

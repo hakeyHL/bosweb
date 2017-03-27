@@ -15,7 +15,7 @@
 
     <div class="col-lg-12" style="margin: 20px"></div>
     <form class="form-horizontal" action="<%=contextPath%>/courier/update" id="form_edit"
-          method="post" onsubmit="return dosubmit()">
+          method="post">
 
         <input type="hidden" name="id" value="${courier.id}">
         <div class="form-group">
@@ -73,9 +73,3 @@
 
 
 </div>
-<script>
-    function dosubmit() {
-        return true;
-    }
-
-</script>

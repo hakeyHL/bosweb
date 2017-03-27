@@ -4,7 +4,7 @@
     String contextPath = request.getContextPath();
 %>
 <jsp:include page="WEB-INF/jsp/views/include/header.jsp"/>
-
+<%--首页--%>
 <div id="page-wrapper">
     <div class="row" style="margin: 5px; font-size: 18px">
         <span>首页下单</span>
@@ -56,7 +56,9 @@
     </form>
 </div>
 <script type="text/javascript" language="JavaScript">
-
+    /*
+     *表单校验
+     */
     $(function () {
         $('form').bootstrapValidator({
             message: 'This value is not valid',
@@ -120,6 +122,10 @@
         });
     });
 
+    /*
+     * 当点击了确定下单的按钮后调用此方法
+     * 然后执行表单校验
+     * */
     $('#validateBtn').click(function () {
         $('#defaultForm').bootstrapValidator('validate');
     });

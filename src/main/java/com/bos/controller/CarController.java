@@ -22,7 +22,7 @@ public class CarController extends BaseController {
     private CarService carService;
 
     //请求路径映射,加上类上的此注解,此接口的完整访问路径为
-    //ip:端口/Car/list
+    //ip:端口/car/list
     @RequestMapping("list")
     //获取车辆列表
     public ModelAndView listCars(Car car) {

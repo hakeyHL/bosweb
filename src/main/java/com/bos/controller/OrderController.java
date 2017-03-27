@@ -32,7 +32,7 @@ public class OrderController extends BaseController {
     private CarService carService;
 
     //请求路径映射,加上类上的此注解,此接口的完整访问路径为
-    //ip:端口/Order/list
+    //ip:端口/order/list
     @RequestMapping("list")
     //获取订单列表
     public ModelAndView listOrders(Order orde) {
@@ -105,14 +105,21 @@ public class OrderController extends BaseController {
         }
         Order order = orderService.getOrderById(id);
         if (order != null) {
+            //根据订单中的车辆的id获取车牌号
             getCarNumberForOrder(order);
+            //根据订单中的快递员id获取快递员姓名
             getCourierNameForOrder(order);
             modelAndView.addObject("order", order);
         }
+        //获取搜索车辆列表
         List<Car> cars = carService.listCars(new Car());
+        //获取所有快递员列表
         List<Courier> couriers = courierService.listCouriers("");
+        //将属性放入到modelAndView(可以理解为request域)中,可在页面中取属性
         modelAndView.addObject("allCars", cars);
         modelAndView.addObject("allCouriers", couriers);
+
+        //跳转到WEB-INF/jsp/views/layout/order/edit.jsp页面
         modelAndView.setViewName("layout/order/edit");
         return modelAndView;
     }
@@ -130,6 +137,11 @@ public class OrderController extends BaseController {
         return true;
     }
 
+    /**
+     * 根据订单中的车辆id获取车牌号
+     *
+     * @param order
+     */
     private void getCarNumberForOrder(Order order) {
         Car car = carService.getCarById(order.getCarnumber());
         if (car != null) {
@@ -137,6 +149,10 @@ public class OrderController extends BaseController {
         }
     }
 
+    /**
+     * 根据订单中的快递员id获取快递员姓名
+     * @param order
+     */
     private void getCourierNameForOrder(Order order) {
         Courier courier = courierService.getCourierById(order.getCourierid());
         if (courier != null) {

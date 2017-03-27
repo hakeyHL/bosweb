@@ -12,10 +12,10 @@
 
 
 <div id="page-wrapper">
-
+    <%--车辆编辑页面--%>
     <div class="col-lg-12" style="margin: 20px"></div>
     <form class="form-horizontal" action="<%=contextPath%>/car/update" id="form_edit"
-          method="post" onsubmit="return dosubmit()">
+          method="post">
 
         <input type="hidden" name="id" value="${car.id}">
         <div class="form-group">
@@ -52,9 +52,4 @@
 
 
 </div>
-<script>
-    function dosubmit() {
-        return true;
-    }
-
 </script>
