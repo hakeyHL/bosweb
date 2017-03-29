@@ -45,7 +45,7 @@
             <param-value>classpath:spring/spring-mvc.xml</param-value>
         </init-param>
         <!--加载顺序为第一个-->
-        <load-on-startup>0</load-on-startup>
+        <load-on-startup>2</load-on-startup>
     </servlet>
     <!-- URL映射 -->
     <servlet-mapping>

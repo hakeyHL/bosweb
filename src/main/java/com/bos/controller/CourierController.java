@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -68,14 +69,14 @@ public class CourierController extends BaseController {
 
     //修改快递员信息
     @RequestMapping("update")
-    public ModelAndView updateCourier(Courier courier) {
+    public RedirectView updateCourier(Courier courier) {
         if (courier.getId() == null) {
             this.addCourier(courier);
         } else {
             courierService.updateCourier(courier);
         }
-        //返回快递员列表页面,所以调用本类listCouriers方法
-        return this.listCouriers(new Courier());
+        //重定向到快递员列表页面
+        return new RedirectView("/courier/list");
     }
 
     /**

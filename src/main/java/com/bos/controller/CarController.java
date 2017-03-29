@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -58,7 +59,7 @@ public class CarController extends BaseController {
         return this.listCars(new Car());
     }
 
-    //删除多个快递员
+    //删除多个车辆
     @ResponseBody
     @RequestMapping("batchDelete")
     public boolean batchDelCourier(@RequestParam(value = "ids[]") int[] ids) {
@@ -68,14 +69,14 @@ public class CarController extends BaseController {
 
     //修改车辆信息
     @RequestMapping("update")
-    public ModelAndView updateCar(Car car) {
+    public RedirectView updateCar(Car car) {
         if (car.getId() == null) {
             this.addCar(car);
         } else {
             carService.updateCar(car);
         }
-        //增加完之后返回车辆列表页面,所以调用本类listCars方法
-        return this.listCars(new Car());
+        //重定向到车辆列表页面
+        return new RedirectView("/car/list");
     }
 
     /**
