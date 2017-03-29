@@ -33,36 +33,37 @@
                 <input type="text" name="region" class="form-control" value="${courier.region}" placeholder="负责的区域">
             </div>
         </div>
+        <c:if test="${orders !=null }">
+            <label class="col-sm-3 control-label">所有订单：</label>
 
-        <label class="col-sm-3 control-label">所有订单：</label>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-lg-12">
-                    <table class="table table-bordered table-hover table-condensed" style="font-size:12px;">
-                        <thead>
-                        <tr>
-                            <td>创建时间</td>
-                            <td>发件人</td>
-                            <td>收件人</td>
-                            <td>收件地址</td>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${orders}" var="data">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table table-bordered table-hover table-condensed" style="font-size:12px;">
+                            <thead>
                             <tr>
-                                <td><fmt:formatDate value="${data.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                                <td>${data.sender}</td>
-                                <td>${data.receiver}</td>
-                                <td>${data.receiveraddress}</td>
+                                <td>创建时间</td>
+                                <td>发件人</td>
+                                <td>收件人</td>
+                                <td>收件地址</td>
+
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${orders}" var="data">
+                                <tr>
+                                    <td><fmt:formatDate value="${data.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                    <td>${data.sender}</td>
+                                    <td>${data.receiver}</td>
+                                    <td>${data.receiveraddress}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        </c:if>
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">
                 <button type="submit" class="btn btn-default" id="button_submit">确定</button>
