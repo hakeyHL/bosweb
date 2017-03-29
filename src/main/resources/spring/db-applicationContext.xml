@@ -8,13 +8,13 @@
 	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
 
     <description>公共的默认数据源配置</description>
-    <!--hasoffer数据库 -->
+    <!--数据库 -->
     <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
           init-method="init" destroy-method="close">
         <property name="url"
-                  value="jdbc:mysql://数据库的地址:3306/bos?allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
-        <property name="username" value="用户名"/>
-        <property name="password" value="密码"/>
+                  value="jdbc:mysql://127.0.0.1:3306/bos?allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
 
         <!-- 初始化连接大小 -->
         <property name="initialSize" value="10"/>
