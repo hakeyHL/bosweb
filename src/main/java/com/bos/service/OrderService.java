@@ -75,8 +75,7 @@ public class OrderService {
         Date currentDate = new Date();
         order.setCreatetime(currentDate);
         order.setUpdatetime(currentDate);
-        order.setPostcode("00000");
-        order.setShow(0);
+        order.setShow(1);
         orderMapper.insert(order);
     }
 
