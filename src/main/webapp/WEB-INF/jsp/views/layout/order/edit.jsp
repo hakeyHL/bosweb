@@ -21,7 +21,6 @@
         <input type="hidden" name="createtime" value="${order.createtime}">
         <input type="hidden" name="updatetime" value="${order.updatetime}">
         <input type="hidden" name="updatetime" value="${order.show}">
-        <input type="hidden" name="updatetime" value="${order.postCode}">
         <div class="form-group">
             <label class="col-sm-3 control-label">发件人：</label>
 
