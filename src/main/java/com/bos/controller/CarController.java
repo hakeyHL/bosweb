@@ -5,6 +5,8 @@ import com.bos.service.CarService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -56,14 +58,22 @@ public class CarController extends BaseController {
         return this.listCars(new Car());
     }
 
+    //删除多个快递员
+    @ResponseBody
+    @RequestMapping("batchDelete")
+    public boolean batchDelCourier(@RequestParam(value = "ids[]") int[] ids) {
+        carService.batchDelCar(ids);
+        return true;
+    }
+
     //修改车辆信息
     @RequestMapping("update")
     public ModelAndView updateCar(Car car) {
-        if (car == null || car.getId() <= 0) {
-            //如果传来的id小于等于0或对象为空则无法操作,直接跳转到车辆列表页面
-            return this.listCars(new Car());
+        if (car.getId() == null) {
+            this.addCar(car);
+        } else {
+            carService.updateCar(car);
         }
-        carService.updateCar(car);
         //增加完之后返回车辆列表页面,所以调用本类listCars方法
         return this.listCars(new Car());
     }
@@ -75,13 +85,12 @@ public class CarController extends BaseController {
      */
     @RequestMapping("info/{id}")
     public ModelAndView getCarInfo(@PathVariable(value = "id") int id) {
+        modelAndView.setViewName("layout/car/edit");
         if (id <= 0) {
-            //如果传来的id小于等于0则无法操作,直接跳转到车辆列表页面
-            return this.listCars(new Car());
+            return modelAndView;
         }
         Car Car = carService.getCarById(id);
         modelAndView.addObject("car", Car);
-        modelAndView.setViewName("layout/car/edit");
         return modelAndView;
     }
 }

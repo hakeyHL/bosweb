@@ -5,6 +5,7 @@ import com.bos.model.Car;
 import com.bos.model.CarExample;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -56,6 +57,7 @@ public class CarService {
      *
      * @param id
      */
+    @Transactional
     public void delCar(int id) {
         //根据主键删除
         carMapper.deleteByPrimaryKey(id);
@@ -80,5 +82,13 @@ public class CarService {
     public Car getCarById(int id) {
         //根据主键获取车辆信息
         return carMapper.selectByPrimaryKey(id);
+    }
+
+    @Transactional
+    public void batchDelCar(int[] ids) {
+        for (int id : ids) {
+            //根据主键删除
+            carMapper.deleteByPrimaryKey(id);
+        }
     }
 }

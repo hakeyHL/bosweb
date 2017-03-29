@@ -143,20 +143,25 @@ public class OrderController extends BaseController {
      * @param order
      */
     private void getCarNumberForOrder(Order order) {
-        Car car = carService.getCarById(order.getCarnumber());
-        if (car != null) {
-            order.setVehicleNumber(car.getNumber());
+        if (order != null && order.getCarnumber() != null) {
+            Car car = carService.getCarById(order.getCarnumber());
+            if (car != null) {
+                order.setVehicleNumber(car.getNumber());
+            }
         }
     }
 
     /**
      * 根据订单中的快递员id获取快递员姓名
+     *
      * @param order
      */
     private void getCourierNameForOrder(Order order) {
-        Courier courier = courierService.getCourierById(order.getCourierid());
-        if (courier != null) {
-            order.setCourierName(courier.getName());
+        if (order != null && order.getCourierid() != null) {
+            Courier courier = courierService.getCourierById(order.getCourierid());
+            if (courier != null) {
+                order.setCourierName(courier.getName());
+            }
         }
     }
 }
