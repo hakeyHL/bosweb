@@ -20,5 +20,3 @@
 	如果不想使用maven请参考如下地址:(关键字:如何将maven项目转成普通项目)
 [http://blog.csdn.net/hongchangfirst/article/details/7896283 ](http://blog.csdn.net/hongchangfirst/article/details/7896283  "如何将maven项目转成普通项目")
   
-(参考地址讲的是使用idea开发工具生成的例子,这个没关系,同样的原理操作方法在eclipse中也可以完成,
-这个可以不必深究,老师问起只说按照网上的方法生成的即可.)
