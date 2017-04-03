@@ -19,4 +19,7 @@
    
 	如果不想使用maven请参考如下地址:(关键字:如何将maven项目转成普通项目)
 [http://blog.csdn.net/hongchangfirst/article/details/7896283 ](http://blog.csdn.net/hongchangfirst/article/details/7896283  "如何将maven项目转成普通项目")
-  
+8. 项目根目录下放置了eclipse版本下的本项目.(Eclipse Jee Neon
+Version: Neon.3 Release (4.6.3)
+Build id: 20170314-1500
+ )  
