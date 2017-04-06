@@ -76,7 +76,7 @@ public class CarController extends BaseController {
             carService.updateCar(car);
         }
         //重定向到车辆列表页面
-        return new RedirectView("/car/list");
+        return new RedirectView(request.getContextPath() + "/ car / list ");
     }
 
     /**
