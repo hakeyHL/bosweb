@@ -3,6 +3,7 @@ package com.bos.controller;
 import com.bos.model.Car;
 import com.bos.model.Courier;
 import com.bos.model.Order;
+import com.bos.model.User;
 import com.bos.service.CarService;
 import com.bos.service.CourierService;
 import com.bos.service.OrderService;
@@ -36,6 +37,7 @@ public class OrderController extends BaseController {
     @RequestMapping("list")
     //获取订单列表
     public ModelAndView listOrders(Order orde) {
+        User currentUser = (User) request.getSession().getAttribute("user");
         if (orde != null) {
             modelAndView.addObject("order", orde);
         }
