@@ -3,13 +3,13 @@
 <%
     String contextPath = request.getContextPath();
 %>
-<jsp:include page="WEB-INF/jsp/views/include/header.jsp"/>
+<jsp:include page="include/header.jsp"/>
 <%--首页--%>
 <div id="page-wrapper">
     <div class="row" style="margin: 5px; font-size: 18px">
         <span>首页下单</span>
     </div>
-    <form id="defaultForm" class="form-horizontal" action="/order/add" method="post">
+    <form id="defaultForm" class="form-horizontal" action="${pageContext.request.contextPath }/order/add" method="post">
         <div class="form-group">
             <label for="sender" class="col-sm-2 control-label">发件人</label>
             <div class="col-sm-10">

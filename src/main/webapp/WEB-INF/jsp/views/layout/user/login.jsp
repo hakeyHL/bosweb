@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<jsp:include page="include/header.jsp"/>
+<jsp:include page="../../include/header.jsp"/>
 
 <div class="container">
     <div class="row">
@@ -12,10 +12,10 @@
                     <h3 class="panel-title">请登录</h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form" action="/api/login" method="post">
+                    <form role="form" action="${pageContext.request.contextPath }/user/login" method="post">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" value="${data.loginName}" placeholder="用户名/身份证号"
+                                <input class="form-control" value="${data.userName}" placeholder="用户名"
                                        name="loginName" type="text" autofocus>
                             </div>
                             <div class="form-group">

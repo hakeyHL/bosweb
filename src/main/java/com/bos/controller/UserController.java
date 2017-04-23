@@ -1,8 +1,15 @@
 package com.bos.controller;
 
+import com.bos.model.User;
+import com.bos.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by linux on 2017年04月23日.
@@ -11,6 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("user")
 @Controller
 public class UserController extends BaseController {
+    @Resource
+    UserService userService;
+
     /**
      * 跳转到注册页面
      *
@@ -25,22 +35,12 @@ public class UserController extends BaseController {
 
     @RequestMapping("register")
     private ModelAndView registerUser(User user) {
-        //信息校验
-        if (exist) {
-            //valid
-            modelAndView.addObject("msg", "失败,ID已注册!");
-            modelAndView.setViewName("layout/register");
-            modelAndView.addObject("data", user);
-            return modelAndView;
-        }
-        Long id = userService.saveUser(user);
+        int id = userService.saveUser(user);
         if (id > 0) {
-            modelAndView.addObject("msg", "谢谢您加入我们!");
+            modelAndView.addObject("msg", "注册成功!");
         }
-
         modelAndView.setViewName("login");
         //注册成功显示一个提示然后跳转到登录页面
-
         return modelAndView;
     }
 
@@ -49,15 +49,12 @@ public class UserController extends BaseController {
     private ModelAndView login(User user) {
         //验证码校验
         //查询用户
-        List<User> users = userService.listAllUser(user);
-        if (users != null && users.size() == 1) {
+        User loginUser = userService.getUserByName(user.getUsername());
+        if (loginUser != null) {
             //只能有一个
             modelAndView.addObject("msg", "ok");
-            List<TrainNumber> trainNumbers = trainNumberService.listTrains(new TrainNumber());
-            modelAndView.addObject("trains", trainNumbers);
-
-            modelAndView.setViewName("layout/listtrain");
-            request.getSession().setAttribute("user", users.get(0));
+            modelAndView.setViewName("/index");
+            request.getSession().setAttribute("user", loginUser);
         } else {
             modelAndView.addObject("msg", "用户名或密码错误!");
             modelAndView.addObject("data", user);
@@ -66,5 +63,17 @@ public class UserController extends BaseController {
         return modelAndView;
     }
 
-
+    @ResponseBody
+    @RequestMapping("validate")
+    private Map validate(String userName) {
+        Map dataMap = new HashMap();
+        dataMap.put("valid", true);
+        if (org.apache.commons.lang3.StringUtils.isNotEmpty(userName)) {
+            User user = userService.getUserByName(userName);
+            if (user != null) {
+                dataMap.put("valid", false);
+            }
+        }
+        return dataMap;
+    }
 }
