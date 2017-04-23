@@ -33,6 +33,11 @@ public class OrderService {
         if (order.getShow() != null && order.getShow() >= 0) {
             criteria.andShowEqualTo(order.getShow());
         }
+
+        //用户id
+        if (order.getUserid() != null && order.getUserid() > 0) {
+            criteria.andUseridEqualTo(order.getUserid());
+        }
         //发件人姓名
         if (StringUtils.isNotEmpty(order.getSender())) {
             criteria.andSenderLike("%" + order.getSender() + "%");

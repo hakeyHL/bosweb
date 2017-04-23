@@ -7,6 +7,7 @@ import com.bos.model.User;
 import com.bos.service.CarService;
 import com.bos.service.CourierService;
 import com.bos.service.OrderService;
+import com.bos.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,8 @@ public class OrderController extends BaseController {
     private CourierService courierService;
     @Resource
     private CarService carService;
+    @Resource
+    private UserService userService;
 
     //请求路径映射,加上类上的此注解,此接口的完整访问路径为
     //ip:端口/order/list
@@ -40,6 +43,9 @@ public class OrderController extends BaseController {
         User currentUser = (User) request.getSession().getAttribute("user");
         if (orde != null) {
             modelAndView.addObject("order", orde);
+            if (currentUser != null) {
+                orde.setUserid(currentUser.getId());
+            }
         }
         //获取订单列表
         List<Order> orders = orderService.listOrders(orde);
@@ -54,6 +60,11 @@ public class OrderController extends BaseController {
             //根据车辆id获取车辆编号
             if (order.getCarnumber() != null) {
                 getCarNumberForOrder(order);
+            }
+
+            //根据用户id获取用户名
+            if (order.getUserid() != null && order.getId() > 0) {
+                getUserNameFromUser(order);
             }
         }
         modelAndView.setViewName("layout/order/list");
@@ -163,6 +174,20 @@ public class OrderController extends BaseController {
             Courier courier = courierService.getCourierById(order.getCourierid());
             if (courier != null) {
                 order.setCourierName(courier.getName());
+            }
+        }
+    }
+
+    /**
+     * 根据订单中的用户id获取用户名
+     *
+     * @param order
+     */
+    private void getUserNameFromUser(Order order) {
+        if (order != null && order.getUserid() != null) {
+            User user = userService.getUserById(order.getUserid());
+            if (user != null) {
+                order.setUserName(user.getUsername());
             }
         }
     }

@@ -46,12 +46,12 @@
 
         <!--生成对应表及类名 -->
 
-        <table tableName="car"
-               delimitAllColumns="true"
-               delimitIdentifiers="true"
-               domainObjectName="Car">
-            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
-        </table>
+        <!--<table tableName="car"-->
+        <!--delimitAllColumns="true"-->
+        <!--delimitIdentifiers="true"-->
+        <!--domainObjectName="Car">-->
+        <!--<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>-->
+        <!--</table>-->
 
         <table tableName="order"
                delimitAllColumns="true"
@@ -60,25 +60,25 @@
             <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
         </table>
 
-        <table tableName="courier"
-               delimitAllColumns="true"
-               delimitIdentifiers="true"
-               domainObjectName="Courier">
-            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
-        </table>
+        <!--<table tableName="courier"-->
+        <!--delimitAllColumns="true"-->
+        <!--delimitIdentifiers="true"-->
+        <!--domainObjectName="Courier">-->
+        <!--<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>-->
+        <!--</table>-->
 
-        <table tableName="courierorder"
-               delimitAllColumns="true"
-               delimitIdentifiers="true"
-               domainObjectName="Courierorder">
-            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
-        </table>
+        <!--<table tableName="courierorder"-->
+        <!--delimitAllColumns="true"-->
+        <!--delimitIdentifiers="true"-->
+        <!--domainObjectName="Courierorder">-->
+        <!--<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>-->
+        <!--</table>-->
 
-        <table tableName="user"
-               delimitAllColumns="true"
-               delimitIdentifiers="true"
-               domainObjectName="User">
-            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
-        </table>
+        <!--<table tableName="user"-->
+        <!--delimitAllColumns="true"-->
+        <!--delimitIdentifiers="true"-->
+        <!--domainObjectName="User">-->
+        <!--<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>-->
+        <!--</table>-->
     </context>
 </generatorConfiguration>

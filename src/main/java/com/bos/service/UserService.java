@@ -36,4 +36,8 @@ public class UserService {
     public int saveUser(User user) {
         return userMapper.insert(user);
     }
+
+    public User getUserById(Integer userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
 }

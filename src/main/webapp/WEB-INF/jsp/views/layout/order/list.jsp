@@ -5,10 +5,14 @@
 
 <%
     String contextPath = request.getContextPath();
+    request.getSession().getAttribute("user");
 %>
 
 <jsp:include page="../../include/header.jsp"/>
-<jsp:include page="../../include/left.jsp"/>
+<c:if test="${user == null }">
+    <jsp:include page="../../include/left.jsp"/>
+</c:if>
+
 
 <div id="page-wrapper">
     <!-- 删除结果提示 -->
@@ -153,6 +157,9 @@
                     <td>运输车辆编号</td>
                     <td>配送员</td>
                     <td>是否取消</td>
+
+                    <td>下单用户名</td>
+
                     <td colspan="3">操作</td>
                 </tr>
                 </thead>
@@ -184,6 +191,7 @@
                                 </c:when>
                             </c:choose>
                         </td>
+                        <td>${data.userName}</td>
 
                         <td><a href="info/${data.id}">编辑</a></td>
                         <td><a href="javascript:void(0)"

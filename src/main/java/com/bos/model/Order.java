@@ -33,6 +33,25 @@ public class Order {
 
     private String vehicleNumber;
 
+    private Integer userid;
+
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userId) {
+        this.userid = userId;
+    }
 
     public String getVehicleNumber() {
         return vehicleNumber;
