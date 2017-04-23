@@ -21,6 +21,17 @@
 
     <mvc:resources mapping="/static/**" location="/static/"/>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/user/register"></mvc:exclude-mapping>
+            <mvc:exclude-mapping path="/user/login"></mvc:exclude-mapping>
+            <mvc:exclude-mapping path="/user/to/register"></mvc:exclude-mapping>
+            <mvc:exclude-mapping path="/static/**"></mvc:exclude-mapping>
+            <bean class="com.bos.interceptor.UserLoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView"></property>
         <property name="prefix" value="/WEB-INF/jsp/views/"></property>
