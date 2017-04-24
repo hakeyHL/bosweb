@@ -15,15 +15,14 @@
                     <form role="form" action="${pageContext.request.contextPath }/user/login" method="post">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="用户名/身份证号" name="loginName" type="text"
-                                       autofocus>
+                                <input class="form-control" value="${data.userName}" placeholder="用户名"
+                                       name="userName" type="text" autofocus>
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" placeholder="密码" name="password" value=""/>
                             </div>
                             <button type="submit" class="btn btn-lg btn-success btn-block">登录</button>
                         </fieldset>
-                        <span>还没有账号?<a href="${pageContext.request.contextPath }/user/to/register">注册</a></span>
                     </form>
                     <div style="color: red">
                         ${msg}

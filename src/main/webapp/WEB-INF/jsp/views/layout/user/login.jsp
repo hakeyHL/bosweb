@@ -16,7 +16,7 @@
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" value="${data.userName}" placeholder="用户名"
-                                       name="loginName" type="text" autofocus>
+                                       name="userName" type="text" autofocus>
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" placeholder="密码" name="password" value=""/>
