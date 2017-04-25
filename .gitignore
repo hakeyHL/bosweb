@@ -10,3 +10,6 @@
 *.pyc
 */*.pyc
 *.bat
+.classpath
+.project
+.settings
