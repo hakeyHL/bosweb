@@ -17,8 +17,8 @@
                         <fieldset>
 
                             <div class="form-group">
-                                <input class="form-control" value="${data.userName}" placeholder="昵称/登录名"
-                                       name="userName" type="text" autofocus>
+                                <input class="form-control" value="${data.username}" placeholder="昵称/登录名"
+                                       name="username" type="text" autofocus>
                             </div>
 
 

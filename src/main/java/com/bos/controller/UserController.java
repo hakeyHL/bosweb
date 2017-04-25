@@ -28,7 +28,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping("to/register")
     private ModelAndView toRegisterPage() {
-        modelAndView.setViewName("layout/register");
+        modelAndView.setViewName("layout/user/register");
         return modelAndView;
     }
 
@@ -39,7 +39,7 @@ public class UserController extends BaseController {
         if (id > 0) {
             modelAndView.addObject("msg", "注册成功!");
         }
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("layout/user/login");
         //注册成功显示一个提示然后跳转到登录页面
         return modelAndView;
     }
@@ -50,7 +50,7 @@ public class UserController extends BaseController {
         //验证码校验
         //查询用户
         User loginUser = userService.getUserByName(user.getUsername());
-        if (loginUser != null) {
+        if (loginUser != null && loginUser.getPassword().equals(user.getPassword())) {
             //只能有一个
             modelAndView.addObject("msg", "ok");
             modelAndView.setViewName("/index");
@@ -58,7 +58,7 @@ public class UserController extends BaseController {
         } else {
             modelAndView.addObject("msg", "用户名或密码错误!");
             modelAndView.addObject("data", user);
-            modelAndView.setViewName("/login");
+            modelAndView.setViewName("layout/user/login");
         }
         return modelAndView;
     }
