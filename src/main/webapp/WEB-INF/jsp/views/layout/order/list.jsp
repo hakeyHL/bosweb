@@ -9,9 +9,7 @@
 %>
 
 <jsp:include page="../../include/header.jsp"/>
-<c:if test="${user == null }">
-    <jsp:include page="../../include/left.jsp"/>
-</c:if>
+<jsp:include page="../../include/left.jsp"/>
 
 
 <div id="page-wrapper">
@@ -24,7 +22,7 @@
         <div name="appType" class="input-group">
             <span class="input-group-addon">订单查询</span>
 
-            <form id="reListDealByType" action="/order/list" method="get">
+            <form id="reListDealByType" action="/order/list" method="post">
                 <div class="col-lg-4">
                     <span class="input-group-addon">发件人</span>
                     <input type="text" name="sender" class="form-control" placeholder="发件人"
@@ -60,6 +58,15 @@
                     <input type="text" name="receiveraddress" class="form-control" placeholder="收件人地址"
                            value="${order.receiveraddress}">
                 </div>
+
+                <div class="col-lg-4">
+                    <span class="input-group-addon">下单人</span>
+                    <input type="text" name="userName" class="form-control" placeholder="下单用户"
+                           value="${order.userName}"
+                    >
+                </div>
+
+
                 <div class="col-lg-4">
                     <select id="typeSelect" class="form-control" name="show">
                         <option value="-1">
@@ -192,7 +199,14 @@
                             </c:choose>
                         </td>
                         <td>${data.userName}</td>
-
+                        <c:choose>
+                            <c:when test="${data.userName != null}">
+                                <td>${data.userName}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>${user.userName}</td>
+                            </c:otherwise>
+                        </c:choose>
                         <td><a href="info/${data.id}">编辑</a></td>
                         <td><a href="javascript:void(0)"
                                onclick="deleteById('<%=contextPath%>/order/del/${data.id}')"

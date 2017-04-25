@@ -39,11 +39,19 @@ public class UserController extends BaseController {
         if (id > 0) {
             modelAndView.addObject("msg", "注册成功!");
         }
+        removeUserFromSession();
         modelAndView.setViewName("layout/user/login");
         //注册成功显示一个提示然后跳转到登录页面
         return modelAndView;
     }
 
+
+    @RequestMapping("logout")
+    private ModelAndView logout() {
+        modelAndView.setViewName("layout/user/login");
+        removeUserFromSession();
+        return modelAndView;
+    }
 
     @RequestMapping("login")
     private ModelAndView login(User user) {

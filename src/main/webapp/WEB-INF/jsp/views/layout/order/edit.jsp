@@ -21,6 +21,7 @@
         <input type="hidden" name="createtime" value="${order.createtime}">
         <input type="hidden" name="updatetime" value="${order.updatetime}">
         <input type="hidden" name="updatetime" value="${order.show}">
+        <input type="hidden" name="userid" value="${order.userid}">
         <div class="form-group">
             <label class="col-sm-3 control-label">发件人：</label>
 
@@ -110,6 +111,21 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="col-sm-3 control-label">是否取消：</label>
+
+            <div class="col-sm-7">
+                <select id="showSelected" class="form-control" name="show">
+                    <option
+                            value="0" <c:if test="${order.show==0}">selected</c:if>>已取消
+                    </option>
+                    <option
+                            value="1" <c:if test="${order.show==1}">selected</c:if>>未取消
+                    </option>
+
+                </select>
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">

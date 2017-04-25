@@ -25,6 +25,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/order/add"/>
             <mvc:mapping path="/index"/>
+            <mvc:mapping path="/order/to/list"/>
             <!--<mvc:exclude-mapping path="/user/**"></mvc:exclude-mapping>-->
             <!--<mvc:exclude-mapping path="/static/**"></mvc:exclude-mapping>-->
             <bean class="com.bos.interceptor.UserLoginInterceptor"/>

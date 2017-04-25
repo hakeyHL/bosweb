@@ -41,7 +41,7 @@
         //当点击确定按钮执行的代码
         $('#ensure').click(function () {
             /*跳转到首页下单页面*/
-            $(window).attr('location', '<%=basePath%>/order/list');
+            $(window).attr('location', '<%=basePath%>/order/to/list');
         });
     });
 </script>

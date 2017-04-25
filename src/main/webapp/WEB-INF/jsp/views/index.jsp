@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" session="false" %>
-<%
-    String contextPath = request.getContextPath();
-%>
 <jsp:include page="include/header.jsp"/>
 <%--首页--%>
+
 <div id="page-wrapper">
     <div class="row" style="margin: 5px; font-size: 18px">
         <span>首页下单</span>
     </div>
+
     <form id="defaultForm" class="form-horizontal" action="${pageContext.request.contextPath }/order/add" method="post">
         <div class="form-group">
             <label for="sender" class="col-sm-2 control-label">发件人</label>

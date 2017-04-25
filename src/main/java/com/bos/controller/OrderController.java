@@ -8,6 +8,7 @@ import com.bos.service.CarService;
 import com.bos.service.CourierService;
 import com.bos.service.OrderService;
 import com.bos.service.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,13 +41,17 @@ public class OrderController extends BaseController {
     @RequestMapping("list")
     //获取订单列表
     public ModelAndView listOrders(Order orde) {
-        User currentUser = (User) request.getSession().getAttribute("user");
-        if (orde != null) {
-            modelAndView.addObject("order", orde);
-            if (currentUser != null) {
-                orde.setUserid(currentUser.getId());
-            }
+        User useUser;
+        if (StringUtils.isEmpty(orde.getUserName())) {
+            useUser = (User) request.getSession().getAttribute("user");
+        } else {
+            useUser = userService.getUserByName(orde.getUserName());
         }
+        if (useUser != null) {
+            orde.setUserid(useUser.getId());
+            orde.setUserName(useUser.getUsername());
+        }
+        modelAndView.addObject("order", orde);
         //获取订单列表
         List<Order> orders = orderService.listOrders(orde);
         modelAndView.addObject("orders", orders);
@@ -75,6 +80,10 @@ public class OrderController extends BaseController {
     //增加一个订单
     @RequestMapping("add")
     public ModelAndView addOrder(Order order) {
+        User currentUser = getCurrentUser();
+        if (currentUser != null) {
+            order.setUserid(currentUser.getId());
+        }
         orderService.addOrder(order);
         //增加完之后返回订单列表页面,所以调用本类listOrders方法
         return new ModelAndView("success");
@@ -104,6 +113,21 @@ public class OrderController extends BaseController {
         //增加完之后返回订单列表页面,所以调用本类listOrders方法
         return this.listOrders(new Order());
     }
+
+
+    /**
+     * 用户下单完跳转到订单列表
+     * 之所以加这个接口是为了隐藏订单列表接口以及用户拦截
+     * 具体拦截在spring-mvc.xml中配置
+     *
+     * @return
+     */
+    @RequestMapping("to/list")
+    public ModelAndView toOrderList() {
+
+        return this.listOrders(new Order());
+    }
+
 
     /**
      * 获取订单信息

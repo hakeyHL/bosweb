@@ -1,5 +1,6 @@
 package com.bos.controller;
 
+import com.bos.model.User;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,5 +24,23 @@ public abstract class BaseController {
         modelAndView.clear();
         //赋值request和response对象,以便获取request中的属性
         this.request = request;
+    }
+
+    /**
+     * 获取当前登录用户
+     *
+     * @return
+     */
+    public User getCurrentUser() {
+        return (User) request.getSession().getAttribute("user");
+    }
+
+    /**
+     * 从session中移除用户
+     */
+    public void removeUserFromSession() {
+        if (request.getSession().getAttribute("user") != null) {
+            request.getSession().removeAttribute("user");
+        }
     }
 }
