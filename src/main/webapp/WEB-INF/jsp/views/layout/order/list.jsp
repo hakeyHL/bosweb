@@ -22,7 +22,7 @@
         <div name="appType" class="input-group">
             <span class="input-group-addon">订单查询</span>
 
-            <form id="reListDealByType" action="/order/list" method="post">
+            <form id="reListDealByType" action="${pageContext.request.contextPath }/order/list" method="post">
                 <div class="col-lg-4">
                     <span class="input-group-addon">发件人</span>
                     <input type="text" name="sender" class="form-control" placeholder="发件人"
@@ -140,6 +140,8 @@
             <button type="button" class="btn btn-primary" onclick="batchDelete('<%=contextPath%>/order/batchDelete')"
                     data-toggle="modal" data-target="#confirm-delete">批量删除
             </button>
+            <a href="${pageContext.request.contextPath }/order/to"> 继续下单?
+            </a>
         </div>
     </div>
 

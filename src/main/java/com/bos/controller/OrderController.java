@@ -130,6 +130,17 @@ public class OrderController extends BaseController {
 
 
     /**
+     * 跳转到下单页面
+     *
+     * @return
+     */
+    @RequestMapping("to")
+    public ModelAndView toOrderPage() {
+
+        return new ModelAndView("/index");
+    }
+
+    /**
      * 获取订单信息
      *
      * @param id 订单id
