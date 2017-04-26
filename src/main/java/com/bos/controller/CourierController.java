@@ -33,7 +33,6 @@ public class CourierController extends BaseController {
     @RequestMapping("list")
     //获取快递员列表
     public ModelAndView listCouriers(Courier courier) {
-        String contextPath = request.getContextPath();
         if (courier != null) {
             modelAndView.addObject("courier", courier);
         }
