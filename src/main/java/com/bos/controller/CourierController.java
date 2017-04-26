@@ -33,8 +33,9 @@ public class CourierController extends BaseController {
     @RequestMapping("list")
     //获取快递员列表
     public ModelAndView listCouriers(Courier courier) {
+        String contextPath = request.getContextPath();
         if (courier != null) {
-            modelAndView.addObject("car", courier);
+            modelAndView.addObject("courier", courier);
         }
         List<Courier> couriers = courierService.listCouriers(courier.getName());
         modelAndView.addObject("couriers", couriers);
@@ -76,7 +77,7 @@ public class CourierController extends BaseController {
             courierService.updateCourier(courier);
         }
         //重定向到快递员列表页面
-        return new RedirectView("/courier/list");
+        return new RedirectView(request.getContextPath() + "/courier/list");
     }
 
     /**
